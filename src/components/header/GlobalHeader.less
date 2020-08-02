@@ -1,0 +1,40 @@
+.global-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 64px;
+  padding: 0;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+
+  .global-header-trigger {
+    height: 64px;
+    padding: 19px 24px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all .3s, padding 0s;
+  }
+
+  .global-header-right {
+    display: flex;
+    float: right;
+    height: 64px;
+    margin-left: auto;
+    overflow: hidden;
+  }
+
+  .global-header-right-account {
+    align-items: center;
+    height: 100%;
+    padding: 0 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .global-header-right-account-avatar {
+    margin-right:  8px;
+    color: #1890ff;
+    vertical-align: top;
+    background: rgba(255, 255, 255, 0.85);
+  }
+}
