@@ -1,11 +1,31 @@
 import React, {Component} from 'react';
 import {Form, Input, Modal, Select} from 'antd';
+import {roleList} from "../../role/service";
 
 const {Item} = Form;
 const {Option} = Select;
 
 class CreateForm extends Component {
   formRef = React.createRef();
+
+  state = {
+    roles: [],
+  };
+
+  componentDidMount() {
+    this.getRoleList()
+  }
+
+  getRoleList = async () => {
+    const res = await roleList();
+    if (res.code === 0) {
+      this.setState(
+        {
+          roles: res.data || [],
+        }
+      );
+    }
+  };
 
   okHandle = () => {
     this.formRef.current.validateFields()
@@ -19,10 +39,11 @@ class CreateForm extends Component {
   };
 
   render() {
-    const {createModalVisible, groupsSelect} = this.props;
+    const {createModalVisible} = this.props;
+    const {roles} = this.state;
 
     const form_layout = {
-      labelCol: { span: 4 },
+      labelCol: {span: 4},
     };
 
     return (
@@ -40,26 +61,24 @@ class CreateForm extends Component {
           <Item name="name"
                 label="名称"
                 rules={[
-                  {required: true, whitespace: true, message: '请输入组名!'},
+                  {required: true, whitespace: true, message: '请输入组名称!'},
                 ]}
           >
-            <Input placeholder={'组名'}>
+            <Input placeholder={'组名称'}>
             </Input>
           </Item>
-          <Item name="parent_id"
-                label="上级"
+          <Item name="role_id"
+                label="角色"
                 rules={[
                   {required: true},
                 ]}
           >
             <Select
-              placeholder={"请选择父节点"}
+              placeholder={"请选择角色"}
             >
-              {
-                groupsSelect.map(group => {
-                  return (<Option key={group.id} value={group.id}>{group.name}</Option>)
-                })
-              }
+              {roles.map(role => {
+                return (<Option key={role.id} value={role.id}>{role.name}</Option>)
+              })}
             </Select>
           </Item>
         </Form>

@@ -1,19 +1,16 @@
 import React, {Component, Fragment} from 'react';
-import {Button, Card, Col, Divider, message, Row, Table, Tree} from 'antd';
-import {DownOutlined, PlusOutlined} from "@ant-design/icons";
+import {Button, Card, Divider, message, Table} from 'antd';
+import {PlusOutlined} from "@ant-design/icons";
 import {createGroup, deleteGroup, groupList, updateGroup} from "./service";
 import CreateForm from "./components/CreateForm";
 import UpdateForm from "./components/UpdateForm";
 import DeleteForm from "./components/DeleteForm";
 import moment from "moment";
 
-const {DirectoryTree} = Tree
-
 class Group extends Component {
   state = {
     groups: [],
     groupsSelect: [],
-    groupsTree: [],
     loading: false,
     createModalVisible: false,
     updateModalVisible: false,
@@ -48,9 +45,9 @@ class Group extends Component {
         align: 'center',
       },
       {
-        title: '人数',
-        dataIndex: 'head_count',
-        key: 'head_count',
+        title: '角色',
+        dataIndex: 'role_name',
+        key: 'role_name',
         align: 'center',
       },
       {
@@ -95,57 +92,15 @@ class Group extends Component {
       loading: false
     });
     if (res.code === 0) {
-      const groupsSelect = res.data.map(i => {
-        return {id: i.id, name: i.name, parent_id: i.parent_id}
-      });
-      groupsSelect.push({id: 0, name: "根目录"});
       this.setState(
         {
           groups: res.data,
-          groupsSelect: groupsSelect,
-          groupsTree: this.convertToGroupsTree(res.data),
         }
       );
     } else {
-      message.error('获取组列表失败。')
+      message.error(res.message);
     }
   };
-
-  convertToGroupsTree = (groups) => {
-    const formatGroups = groups.map(i => {
-      return {key: i.id, title: i.name, parent_id: i.parent_id}
-    });
-
-    const res = [];
-    const temp = formatGroups.reduce((res, group) => {
-      res[group.key] = group;
-      return res
-    }, {});
-
-    for (const group of formatGroups) {
-      if (group.parent_id === 0) {
-        res.push(group);
-      }
-      if (group.parent_id in temp) {
-        const parent = temp[group.parent_id];
-        parent.children = parent.children || [];
-        parent.children.push(group);
-      }
-    }
-    this.addIsLeaf(res)
-    return res;
-  };
-
-  addIsLeaf = (groups) => {
-    for (const group of groups) {
-      if (group.children === undefined) {
-        group.isLeaf = true
-      } else {
-        group.isLeaf = false
-        this.addIsLeaf(group.children)
-      }
-    }
-  }
 
   handleCreateModalVisible = (visible) => {
     this.setState({
@@ -154,9 +109,7 @@ class Group extends Component {
   };
 
   handleUpdateModalVisible = (visible, group) => {
-    if (group !== undefined) {
-      this.updateGroup = group;
-    }
+    this.updateGroup = group;
     this.setState({
       updateModalVisible: visible,
     });
@@ -175,7 +128,7 @@ class Group extends Component {
       this.handleCreateModalVisible(false);
       this.getGroupList()
     } else {
-      message.error("创建组失败");
+      message.error(res.message);
     }
   };
 
@@ -185,7 +138,7 @@ class Group extends Component {
       this.handleUpdateModalVisible(false);
       this.getGroupList()
     } else {
-      message.error("修改组信息失败");
+      message.error(res.message);
     }
   };
 
@@ -195,17 +148,14 @@ class Group extends Component {
       this.handleDeleteModalVisible(false);
       this.getGroupList()
     } else {
-      message.error("删除组失败");
+      message.error(res.message);
     }
-  };
-
-  onSelect = () => {
   };
 
   render() {
     const title = '组';
     const {
-      groups, groupsSelect, groupsTree, loading,
+      groups, loading,
       createModalVisible, updateModalVisible, deleteModalVisible,
     } = this.state;
     const updateGroup = this.updateGroup;
@@ -236,47 +186,29 @@ class Group extends Component {
 
     return (
       <div>
-        <Row gutter={8}>
-          <Col flex="300px">
-            <Card
-              title={'组织结构'}
-              bodyStyle={{padding: "0"}}
-            >
-              <DirectoryTree
-                switcherIcon={<DownOutlined/>}
-                showIcon={false}
-                onSelect={this.onSelect}
-                treeData={groupsTree}
-              />
-            </Card>
-          </Col>
-          <Col flex="auto"> <Card title={title} extra={addGroup}>
-            <div>
-              <Table
-                columns={this.columns}
-                dataSource={groups}
-                rowKey={groups => groups.id}
-                loading={loading}
-                pagination={{
-                  hideOnSinglePage: true,
-                  pageSize: 10
-                }}
-              />
-            </div>
-          </Card>
-          </Col>
-        </Row>
+        <Card title={title} extra={addGroup}>
+          <Table
+            columns={this.columns}
+            dataSource={groups}
+            rowKey={groups => groups.id}
+            loading={loading}
+            pagination={{
+              hideOnSinglePage: true,
+              pageSize: 10
+            }}
+          />
+        </Card>
 
         {createModalVisible ?
           <CreateForm {...createMethods}
                       createModalVisible={createModalVisible}
-                      groupsSelect={groupsSelect}/> : null}
+          /> : null}
         {updateModalVisible ?
           <UpdateForm {...updateMethods}
                       updateModalVisible={updateModalVisible}
                       group={updateGroup}
                       groups={groups}
-                      groupsSelect={groupsSelect}/> : null}
+          /> : null}
         {deleteModalVisible ?
           <DeleteForm {...deleteMethods}
                       deleteModalVisible={deleteModalVisible}

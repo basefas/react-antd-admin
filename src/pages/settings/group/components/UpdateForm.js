@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Form, Input, Modal, Select} from 'antd';
+import {roleList} from "../../role/service";
 
 const {Item} = Form;
 const {Option} = Select;
@@ -7,12 +8,24 @@ const {Option} = Select;
 class UpdateForm extends Component {
   formRef = React.createRef();
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      groups: props.groupsSelect
-    }
+  state = {
+    roles: [],
+  };
+
+  componentDidMount() {
+    this.getRoleList()
   }
+
+  getRoleList = async () => {
+    const res = await roleList();
+    if (res.code === 0) {
+      this.setState(
+        {
+          roles: res.data || [],
+        }
+      );
+    }
+  };
 
   okHandle = () => {
     this.formRef.current.validateFields()
@@ -29,10 +42,10 @@ class UpdateForm extends Component {
   }
 
   render() {
-    const {updateModalVisible, group, groupsSelect} = this.props;
-
+    const {updateModalVisible, group} = this.props;
+    const {roles} = this.state;
     const form_layout = {
-      labelCol: { span: 4 },
+      labelCol: {span: 4},
     };
 
     return (
@@ -57,17 +70,17 @@ class UpdateForm extends Component {
             <Input placeholder={'组'}>
             </Input>
           </Item>
-          <Item name="parent_id"
-                label="父节点"
+          <Item name="role_id"
+                label="角色"
                 rules={[
                   {required: true},
                 ]}
           >
-            <Select onChange={this.handleChange}
-                    placeholder={"请选择父节点"}
+            <Select
+              placeholder={"请选择角色"}
             >
-              {groupsSelect.map(g => {
-                return (<Option key={g.id} value={g.id}>{g.name}</Option>)
+              {roles.map(role => {
+                return (<Option key={role.id} value={role.id}>{role.name}</Option>)
               })}
             </Select>
           </Item>
