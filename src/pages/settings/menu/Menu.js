@@ -16,7 +16,7 @@ class Menu extends Component {
     selectedMenu: [],
     loading: false,
     modalType: 0,
-    menuType: false,
+    menuType: 0,
     createModalVisible: false,
     updateModalVisible: false,
     deleteModalVisible: false,
@@ -39,14 +39,14 @@ class Menu extends Component {
         dataIndex: 'id',
         key: 'id',
         align: 'center',
-        width: 100,
+        width: 80,
       },
       {
         title: '名称',
         dataIndex: 'name',
         key: 'name',
         align: 'center',
-        width: 160,
+        width: 120,
       },
       {
         title: '路径',
@@ -93,14 +93,14 @@ class Menu extends Component {
         dataIndex: 'id',
         key: 'id',
         align: 'center',
-        width: 100,
+        width: 80,
       },
       {
         title: '名称',
         dataIndex: 'name',
         key: 'name',
         align: 'center',
-        width: 160,
+        width: 120,
       },
       {
         title: '路径',
@@ -161,8 +161,8 @@ class Menu extends Component {
     });
     if (res.code === 0) {
       const menusTree = this.convertMenusTree(res.data)
-      const menusSelect = JSON.parse(JSON.stringify(menusTree))
-      menusSelect.push({key: 0, id: 0, title: "根目录", menu_type: 1, children: []})
+      const menusSelect = this.setSelectable(JSON.parse(JSON.stringify(menusTree)))
+      menusSelect.push({key: 0, id: 0, title: "根目录", selectable: true, menu_type: 1, children: []})
       this.setState(
         {
           menusTree: menusTree,
@@ -196,6 +196,18 @@ class Menu extends Component {
       })
     }
     return formatMenus
+  }
+
+  setSelectable = (menus) => {
+    for (const menu of menus) {
+      if (menu.isLeaf) {
+        menu.disabled = true
+      } else {
+        menu.disabled = false
+        this.setSelectable(menu.children)
+      }
+    }
+    return menus
   }
 
   handleCreateModalVisible = (visible, modalType) => {
@@ -259,7 +271,7 @@ class Menu extends Component {
     const title = event.node.menu_type === 1 ? '目录' : '菜单'
     this.setState({
       menuTitle: title,
-      menuType: event.node.isLeaf
+      menuType: event.node.isLeaf ? 2 : 1
     })
     this.getMenu(value)
   };
@@ -272,7 +284,10 @@ class Menu extends Component {
     const funTitle = '功能';
     const updateMenu = this.updateMenu;
     const deleteMenu = this.deleteMenu;
-    const createMenu = selectedMenu.length !== 0 ? {parent_id: selectedMenu[0].id} : {parent_id: 0}
+    const createMenu = selectedMenu.length !== 0 ? {
+      parent_id: selectedMenu[0].menu_type === 1 ? 0 : selectedMenu[0].id,
+      menu_type: selectedMenu[0].menu_type
+    } : {parent_id: 0, menu_type: 1}
 
     const createMethods = {
       handleCreateMenu: this.handleCreateMenu,
@@ -293,7 +308,7 @@ class Menu extends Component {
       <Button type="primary"
               onClick={() => this.handleCreateModalVisible(true, 1)}
       >
-        {icons['PlusOutlined']}添加
+        {icons['PlusOutlined']}
       </Button>
     );
 
@@ -310,7 +325,7 @@ class Menu extends Component {
         <Row gutter={8}>
           <Col flex="300px">
             <Card
-              title={'菜单管理'}
+              title={'菜单管理'} extra={addMenu}
             >
               <DirectoryTree
                 switcherIcon={icons['DownOutlined']}
@@ -322,7 +337,7 @@ class Menu extends Component {
           </Col>
           <Col flex="auto">
             <div>
-              <Card title={menuTitle} extra={addMenu}>
+              {menuType !== 0 ? <Card title={menuTitle}>
                 <Table
                   columns={this.menuColumns}
                   dataSource={selectedMenu}
@@ -335,8 +350,8 @@ class Menu extends Component {
                   }}
                   childrenColumnName={[]}
                 />
-              </Card>
-              {menuType ? <Card title={funTitle} extra={addFun} style={{marginTop: "8px"}}>
+              </Card> : null}
+              {menuType === 2 ? <Card title={funTitle} extra={addFun} style={{marginTop: "8px"}}>
                 <Table
                   columns={this.funColumns}
                   dataSource={funsTree}
