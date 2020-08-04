@@ -31,7 +31,7 @@ class BaseLayout extends Component {
                  trigger={null}
                  collapsible
                  collapsed={collapsed}>
-            <GlobalMenu/>
+            <GlobalMenu collapsed={collapsed}/>
           </Sider>
           <Layout>
             <GlobalHeader {...toggleMethods} collapsed={collapsed}/>

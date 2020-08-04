@@ -77,10 +77,11 @@ class GlobalMenu extends Component {
   render() {
     const {menus} = this.state;
     const openKeys = this.defaultOpenKeys;
+
     return (
       <div className={'global-menu'}>
         <Link to={'/dashboard'} className={'menu-header'}>
-          <h1>Admin</h1>
+          {this.props.collapsed ? null : <h1>Admin</h1>}
         </Link>
         <Menu
           mode="inline"
