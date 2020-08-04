@@ -100,7 +100,7 @@ class Role extends Component {
         }
       )
     } else {
-      message.error('获取角色列表失败。')
+      message.error(res.message)
     }
   };
 
@@ -111,7 +111,7 @@ class Role extends Component {
         menus: res.data
       })
     } else {
-      message.error('获取菜单列表失败。')
+      message.error(res.message)
     }
   };
 
@@ -148,7 +148,7 @@ class Role extends Component {
       this.handleCreateModalVisible(false);
       this.getRoleList()
     } else {
-      message.error("创建角色失败");
+      message.error(res.message)
     }
   };
 
@@ -158,7 +158,7 @@ class Role extends Component {
       this.handleUpdateModalVisible(false);
       this.getRoleList()
     } else {
-      message.error("修改角色信息失败");
+      message.error(res.message)
     }
   };
 
@@ -168,7 +168,7 @@ class Role extends Component {
       this.handleDeleteModalVisible(false);
       this.getRoleList()
     } else {
-      message.error("删除角色失败");
+      message.error(res.message)
     }
   };
 
@@ -178,7 +178,7 @@ class Role extends Component {
       this.handlePermissionModalVisible(false);
       message.success("修改成功");
     } else {
-      message.error("修改权限失败");
+      message.error(res.message)
     }
   };
 
