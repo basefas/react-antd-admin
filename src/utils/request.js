@@ -1,6 +1,8 @@
 import axios from 'axios'
-import {getToken} from "./auth";
-import {message} from "antd";
+import {deleteToken, getToken} from "./auth";
+import {message, Modal} from "antd";
+
+const { confirm } = Modal;
 
 const instance = axios.create({
   baseURL: 'http://127.0.0.1:8086',
@@ -18,7 +20,21 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   response => {
-    return Promise.resolve(response.data);
+    if (response.data.code === -2) {
+      confirm({
+        title: ' Token 失效, 请重新登录!',
+        onOk() {
+          window.location.href = '/login'
+          deleteToken();
+        },
+        onCancel() {
+          deleteToken();
+        },
+      });
+      return Promise.resolve(response.data);
+    } else {
+      return Promise.resolve(response.data);
+    }
   },
   error => {
     if (error.response) {
