@@ -2,7 +2,7 @@ export interface MenuListItem {
   id: number;
   name: string;
   path: string;
-  menu_type: number;
+  type: number;
   method: string;
   icon: string;
   parent_id: number;
@@ -14,7 +14,7 @@ export interface MenuListItem {
 export interface MenuCreateInfo {
   name: string;
   path: string;
-  menu_type: number;
+  type: number;
   method: string;
   icon: string;
   parent_id: number;
@@ -24,7 +24,7 @@ export interface MenuCreateInfo {
 export interface MenuUpdateInfo {
   name?: string;
   path?: string;
-  menu_type?: number;
+  type?: number;
   method?: string;
   icon?: string;
   parent_id?: number;

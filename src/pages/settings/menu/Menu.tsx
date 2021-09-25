@@ -54,13 +54,14 @@ const Menu: FC = () => {
 
   useEffect(() => {
     getMenuList().then()
+    // eslint-disable-next-line
   }, []);
 
   const convertMenusTree = (menus: MenuListItem[]): DataNode[] => {
     return menus.map((menu) => ({
       key: menu.id,
       title: menu.name,
-      isLeaf: menu.menu_type === 2,
+      isLeaf: menu.type === 2,
       children: menu.children && convertMenusTree(menu.children),
     } as DataNode));
   }
@@ -80,6 +81,7 @@ const Menu: FC = () => {
     if (result.code === 0) {
       setCreateFormVisible(false)
       getMenuList().then()
+      getMenu(selectedMenu[0].id).then()
       message.success("创建成功");
     } else {
       message.error("创建菜单失败");

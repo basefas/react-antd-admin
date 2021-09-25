@@ -36,7 +36,7 @@ const BaseLayout: FC = (props) => {
 
   return (
     <BasicLayout
-      title={"CICD"}
+      title={"Admin"}
       logo={logo}
       menu={{
         loading,

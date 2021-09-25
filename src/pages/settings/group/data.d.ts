@@ -6,11 +6,11 @@ export interface GroupListItem {
 }
 
 export interface GroupCreateInfo {
-  group_name: string;
+  name: string;
   role_id: number;
 }
 
 export interface GroupUpdateInfo {
-  group_name?: string;
+  name?: string;
   role_id?: number;
 }

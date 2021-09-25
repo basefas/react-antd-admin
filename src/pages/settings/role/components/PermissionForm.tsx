@@ -39,6 +39,7 @@ const PermissionForm: FC<PermissionFormProps> = (props) => {
     makeList([], menus)
     setFMap(fatherMap)
     setSMap(sonMap)
+    // eslint-disable-next-line
   }, [menus])
 
   useEffect(() => {
@@ -48,6 +49,7 @@ const PermissionForm: FC<PermissionFormProps> = (props) => {
 
   useEffect(() => {
     updateIndeterminate()
+    // eslint-disable-next-line
   }, [checkedList]);
 
 
@@ -193,7 +195,7 @@ const PermissionForm: FC<PermissionFormProps> = (props) => {
           indeterminate={indeterminateList.includes(record.id)}
           onChange={onChangeCheckbox}
         >
-          {record.id}
+          {record.name}
         </Checkbox>)
       }
     },
@@ -210,7 +212,7 @@ const PermissionForm: FC<PermissionFormProps> = (props) => {
                 value={value}
                 checked={checkedList.includes(value.id)}
                 onChange={onChangeCheckbox}>
-                {value.id}
+                {value.name}
               </Checkbox>
             })}
           </div>
