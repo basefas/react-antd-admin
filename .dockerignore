@@ -1,0 +1,12 @@
+node_modules
+build
+
+.DS_Store
+.idea
+.vscode
+
+.git
+.gitignore
+.dockerignore
+.editorconfig
+Dockerfile
