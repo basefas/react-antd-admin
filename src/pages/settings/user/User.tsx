@@ -91,7 +91,6 @@ const User: FC = () => {
       dataIndex: 'id',
       key: 'id',
       align: 'center',
-      width: 96,
     },
     {
       title: '用户名',
@@ -110,21 +109,18 @@ const User: FC = () => {
       dataIndex: 'group_name',
       key: 'group_name',
       align: 'center',
-      width: 160,
     },
     {
       title: '角色',
       dataIndex: 'role_name',
       key: 'role_name',
       align: 'center',
-      width: 160,
     },
     {
       title: '状态',
       dataIndex: 'status',
       key: 'status',
       align: 'center',
-      width: 96,
       render: (status: number) => {
         if (status === 1) {
           return <Badge status="success" text="启用"/>
@@ -139,7 +135,6 @@ const User: FC = () => {
       title: '操作',
       key: 'action',
       align: 'center',
-      width: 280,
       render: (user: UserListItem) => (
         <Fragment>
           <Button type="link"
