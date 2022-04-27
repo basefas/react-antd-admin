@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import { deleteToken, getToken } from "./auth";
 import { message, Modal } from "antd";
+import '../../public/config/config.js'
 
 const {confirm} = Modal;
 
@@ -11,8 +12,8 @@ export interface ResponseData<T> {
 }
 
 const instance = axios.create({
-  baseURL: 'http://127.0.0.1:8086',
-  timeout: 5000
+  baseURL: (window as any).CONFIG.API_HOST + ':' + (window as any).CONFIG.API_PORT || 'http://localhost:8086',
+  timeout: (window as any).CONFIG.API_TIMEOUT || 5000,
 });
 
 instance.interceptors.request.use(

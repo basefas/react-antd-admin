@@ -36,7 +36,7 @@ const BaseLayout: FC = (props) => {
 
   return (
     <BasicLayout
-      title={"Admin"}
+      title={(window as any).CONFIG.SYSTEM_NAME || 'Admin'}
       logo={logo}
       menu={{
         loading,
