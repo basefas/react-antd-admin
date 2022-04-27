@@ -1,7 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import { deleteToken, getToken } from "./auth";
 import { message, Modal } from "antd";
-import '../../public/config/config.js'
 
 const {confirm} = Modal;
 
