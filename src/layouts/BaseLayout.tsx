@@ -106,6 +106,7 @@ const BaseLayout: FC = () => {
       token={{
         sider: {
           colorBgMenuItemSelected: '#e6f7ff',
+          colorTextMenuSelected: '#1890ff',
         },
       }}
     >
