@@ -1,7 +1,7 @@
 import React, { FC, Fragment, useEffect, useState } from 'react';
 import { Badge, Button, Card, Divider, message, Modal, Table } from "antd";
-import { userList, updateUser, createUser, deleteUser } from "./service";
-import { PlusOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
+import { createUser, deleteUser, updateUser, userList } from "./service";
+import { ExclamationCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { UserCreateInfo, UserListItem, UserUpdateInfo } from "./data";
 import { ColumnsType } from "antd/es/table";
 import CreateForm from "./components/CreateForm";
@@ -71,14 +71,14 @@ const User: FC = () => {
 
   const addUser = (
     <Button type="primary" onClick={() => setCreateFormVisible(true)}>
-      <PlusOutlined/>添加
+      <PlusOutlined />添加
     </Button>
   )
 
   function deleteModal(user: UserListItem) {
     confirm({
       title: '确定删除用户 ' + user.username + ' ?',
-      icon: <ExclamationCircleOutlined/>,
+      icon: <ExclamationCircleOutlined />,
       onOk() {
         handleDeleteUser(user.id).then()
       },
@@ -105,7 +105,7 @@ const User: FC = () => {
       align: 'center',
     },
     {
-      title: '组',
+      title: '分组',
       dataIndex: 'group_name',
       key: 'group_name',
       align: 'center',
@@ -123,11 +123,11 @@ const User: FC = () => {
       align: 'center',
       render: (status: number) => {
         if (status === 1) {
-          return <Badge status="success" text="启用"/>
+          return <Badge status="success" text="启用" />
         } else if (status === 2) {
-          return <Badge status="default" text="禁用"/>
+          return <Badge status="default" text="禁用" />
         } else {
-          return <Badge status="warning" text="未知"/>
+          return <Badge status="warning" text="未知" />
         }
       }
     },
@@ -140,7 +140,7 @@ const User: FC = () => {
           <Button type="link"
                   size={"small"}
                   onClick={() => handleSwitchUserState(user)}>{user.status === 1 ? "禁用" : "启用"}</Button>
-          <Divider type="vertical"/>
+          <Divider type="vertical" />
           <Button type="link"
                   size={"small"}
                   onClick={() => {
@@ -148,7 +148,7 @@ const User: FC = () => {
                     setUserUpdate(user)
                   }}
           >编辑</Button>
-          <Divider type="vertical"/>
+          <Divider type="vertical" />
           <Button type="link"
                   size={"small"}
                   onClick={() => deleteModal(user)}
@@ -174,7 +174,7 @@ const User: FC = () => {
       </Card>
       {createFormVisible ?
         <CreateForm
-          visible={createFormVisible}
+          open={createFormVisible}
           onOk={handleCreateUser}
           onCancel={() => {
             setCreateFormVisible(false)
@@ -182,7 +182,7 @@ const User: FC = () => {
         /> : null}
       {updateFormVisible ?
         <UpdateForm
-          visible={updateFormVisible}
+          open={updateFormVisible}
           user={userUpdate}
           onOk={handleUpdateUser}
           onCancel={() => {

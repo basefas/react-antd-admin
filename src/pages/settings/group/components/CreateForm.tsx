@@ -8,13 +8,13 @@ const {Item} = Form;
 const {Option} = Select;
 
 interface CreateFormProps {
-  visible: boolean;
+  open: boolean;
   onOk: (user: GroupCreateInfo) => void;
   onCancel: () => void;
 }
 
 const CreateForm: FC<CreateFormProps> = (props) => {
-  const {visible, onOk, onCancel} = props
+  const {open, onOk, onCancel} = props
   const [roles, setRoles] = useState<RoleListItem[]>([])
   const [form] = Form.useForm();
 
@@ -45,8 +45,8 @@ const CreateForm: FC<CreateFormProps> = (props) => {
 
   return (
     <Modal
-      title="添加组"
-      visible={visible}
+      title="添加分组"
+      open={open}
       onOk={ok}
       onCancel={onCancel}
       destroyOnClose={true}
@@ -55,9 +55,9 @@ const CreateForm: FC<CreateFormProps> = (props) => {
         <Item name="name"
               label="名称"
               rules={[
-                {required: true, whitespace: true, message: '请输入组名称!'},
+                {required: true, whitespace: true, message: '请输入分组名称!'},
               ]}>
-          <Input placeholder={'组名称'}>
+          <Input placeholder={'分组名称'}>
           </Input>
         </Item>
         <Item name="role_id"

@@ -5,14 +5,14 @@ import { RoleListItem, RoleUpdateInfo } from "../data";
 const {Item} = Form;
 
 interface UpdateFormProps {
-  visible: boolean;
+  open: boolean;
   role: RoleListItem;
   onOk: (id: number, user: RoleUpdateInfo) => void;
   onCancel: () => void;
 }
 
 const UpdateForm: FC<UpdateFormProps> = (props) => {
-  const {visible, role, onOk, onCancel} = props
+  const {open, role, onOk, onCancel} = props
   const [form] = Form.useForm();
 
   const ok = () => {
@@ -34,7 +34,7 @@ const UpdateForm: FC<UpdateFormProps> = (props) => {
   return (
     <Modal
       title="修改用户信息"
-      visible={visible}
+      open={open}
       onOk={ok}
       onCancel={onCancel}
       destroyOnClose={true}

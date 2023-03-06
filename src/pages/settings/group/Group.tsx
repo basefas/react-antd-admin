@@ -1,8 +1,7 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, Fragment, useEffect, useState } from 'react';
 import { Button, Card, Divider, message, Modal, Table } from "antd";
 import { GroupCreateInfo, GroupListItem, GroupUpdateInfo } from "./data";
 import { createGroup, deleteGroup, groupList, updateGroup } from "./service";
-import { Fragment } from 'react';
 import { ColumnsType } from "antd/es/table";
 import moment from 'moment';
 import { ExclamationCircleOutlined, PlusOutlined } from "@ant-design/icons";
@@ -17,7 +16,7 @@ const Group: FC = () => {
   const [loading, setLoading] = useState(false)
   const [createFormVisible, setCreateFormVisible] = useState(false)
   const [updateFormVisible, setUpdateFormVisible] = useState(false)
-  const title = '组';
+  const title = '分组';
 
   const getGroupList = async () => {
     const result = await groupList();
@@ -40,7 +39,7 @@ const Group: FC = () => {
       setCreateFormVisible(false)
       getGroupList().then()
     } else {
-      message.error("创建组失败");
+      message.error("创建分组失败");
     }
   };
 
@@ -50,7 +49,7 @@ const Group: FC = () => {
       setUpdateFormVisible(false);
       getGroupList().then()
     } else {
-      message.error("修改组失败");
+      message.error("修改分组失败");
     }
   };
 
@@ -59,7 +58,7 @@ const Group: FC = () => {
     if (result.code === 0) {
       getGroupList().then()
     } else {
-      message.error("删除组失败");
+      message.error("删除分组失败");
     }
   };
 
@@ -67,14 +66,14 @@ const Group: FC = () => {
     <Button type="primary"
             onClick={() => setCreateFormVisible(true)}
     >
-      <PlusOutlined/>添加
+      <PlusOutlined />添加
     </Button>
   )
 
   function deleteModal(group: GroupListItem) {
     confirm({
-      title: '确定删除组 ' + group.name + ' ?',
-      icon: <ExclamationCircleOutlined/>,
+      title: '确定删除分组 ' + group.name + ' ?',
+      icon: <ExclamationCircleOutlined />,
       onOk() {
         handleDeleteGroup(group.id).then()
       },
@@ -89,7 +88,7 @@ const Group: FC = () => {
       align: 'center',
     },
     {
-      title: '组',
+      title: '分组',
       dataIndex: 'name',
       key: 'name',
       align: 'center',
@@ -126,7 +125,7 @@ const Group: FC = () => {
                     setUpdateFormVisible(true);
                     setGroupUpdate(group)
                   }}>编辑</Button>
-          <Divider type="vertical"/>
+          <Divider type="vertical" />
           <Button type="link"
                   size={"small"}
                   onClick={() => deleteModal(group)}
@@ -153,7 +152,7 @@ const Group: FC = () => {
 
       {createFormVisible ?
         <CreateForm
-          visible={createFormVisible}
+          open={createFormVisible}
           onOk={handleCreateGroup}
           onCancel={() => {
             setCreateFormVisible(false)
@@ -162,7 +161,7 @@ const Group: FC = () => {
 
       {updateFormVisible ?
         <UpdateForm
-          visible={updateFormVisible}
+          open={updateFormVisible}
           group={groupUpdate}
           onOk={handleUpdateGroup}
           onCancel={() => {

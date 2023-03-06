@@ -87,7 +87,7 @@ const Role: FC = () => {
   const addRole = (
     <Button type="primary"
             onClick={() => setCreateFormVisible(true)}>
-      <PlusOutlined/>添加
+      <PlusOutlined />添加
     </Button>
   );
 
@@ -95,7 +95,7 @@ const Role: FC = () => {
     confirm({
       title: '删除角色',
       content: '确定删除角色<' + role.name + '>?',
-      icon: <ExclamationCircleOutlined/>,
+      icon: <ExclamationCircleOutlined />,
       onOk() {
         handleDeleteRole(role.id).then()
       },
@@ -141,7 +141,7 @@ const Role: FC = () => {
                     setUpdateFormVisible(true);
                     setRoleUpdate(role)
                   }}>编辑</Button>
-          <Divider type="vertical"/>
+          <Divider type="vertical" />
           <Button type="link"
                   size={"small"}
                   onClick={() => {
@@ -149,7 +149,7 @@ const Role: FC = () => {
                     setRolePermission(role)
                   }}
           >权限设置</Button>
-          <Divider type="vertical"/>
+          <Divider type="vertical" />
           <Button type="link"
                   size={"small"}
                   onClick={() => deleteModal(role)}
@@ -175,7 +175,7 @@ const Role: FC = () => {
       </Card>
       {createFormVisible ?
         <CreateForm
-          visible={createFormVisible}
+          open={createFormVisible}
           onOk={handleCreateRole}
           onCancel={() => {
             setCreateFormVisible(false)
@@ -183,7 +183,7 @@ const Role: FC = () => {
         /> : null}
       {updateFormVisible ?
         <UpdateForm
-          visible={updateFormVisible}
+          open={updateFormVisible}
           role={roleUpdate}
           onOk={handleUpdateRole}
           onCancel={() => {
@@ -192,7 +192,7 @@ const Role: FC = () => {
         /> : null}
       {permissionFormVisible ?
         <PermissionForm
-          visible={permissionFormVisible}
+          open={permissionFormVisible}
           role={rolePermission}
           menus={menus}
           onOk={handleUpdatePermission}

@@ -5,13 +5,13 @@ import { RoleCreateInfo } from "../data";
 const {Item} = Form;
 
 interface CreateFormProps {
-  visible: boolean;
+  open: boolean;
   onOk: (role: RoleCreateInfo) => void;
   onCancel: () => void;
 }
 
 const CreateForm: FC<CreateFormProps> = (props) => {
-  const {visible, onOk, onCancel} = props
+  const {open, onOk, onCancel} = props
   const [form] = Form.useForm();
 
   const ok = () => {
@@ -33,7 +33,7 @@ const CreateForm: FC<CreateFormProps> = (props) => {
   return (
     <Modal
       title="添加角色"
-      visible={visible}
+      open={open}
       onOk={ok}
       onCancel={onCancel}
       destroyOnClose={true}>

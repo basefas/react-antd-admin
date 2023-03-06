@@ -10,14 +10,14 @@ const {Item} = Form;
 const {Option} = Select;
 
 interface UpdateFormProps {
-  visible: boolean;
+  open: boolean;
   user: UserListItem;
   onOk: (id: number, user: UserUpdateInfo) => void;
   onCancel: () => void;
 }
 
 const UpdateForm: FC<UpdateFormProps> = (props) => {
-  const {visible, user, onOk, onCancel} = props
+  const {open, user, onOk, onCancel} = props
   const [groups, setGroups] = useState<GroupListItem[]>([])
   const [roles, setRoles] = useState<RoleListItem[]>([])
   const [form] = Form.useForm();
@@ -56,7 +56,7 @@ const UpdateForm: FC<UpdateFormProps> = (props) => {
   return (
     <Modal
       title="修改用户信息"
-      visible={visible}
+      open={open}
       onOk={ok}
       onCancel={onCancel}
       destroyOnClose={true}
@@ -80,8 +80,8 @@ const UpdateForm: FC<UpdateFormProps> = (props) => {
           <Input placeholder={'邮箱'}>
           </Input>
         </Item>
-        <Item name="group_id" label="组" rules={[{required: true}]}>
-          <Select placeholder={"请选择组"}>
+        <Item name="group_id" label="分组" rules={[{required: true}]}>
+          <Select placeholder={"请选择分组"}>
             {groups.map(group => {
               return (<Option key={group.id} value={group.id}>{group.name}</Option>)
             })}

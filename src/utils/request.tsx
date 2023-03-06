@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from 'axios'
+import axios from 'axios'
 import { deleteToken, getToken } from "./auth";
 import { message, Modal } from "antd";
 
@@ -11,16 +11,16 @@ export interface ResponseData<T> {
 }
 
 const instance = axios.create({
-  baseURL: (window as any).CONFIG.API_HOST + ':' + (window as any).CONFIG.API_PORT || 'http://localhost:8086',
-  timeout: (window as any).CONFIG.API_TIMEOUT || 5000,
+  baseURL: import.meta.env.VITE_API_HOST + ':' + import.meta.env.VITE_API_PORT || 'http://localhost:8086',
+  timeout: import.meta.env.VITE_API_TIMEOUT || 5000,
 });
 
 instance.interceptors.request.use(
-  function (config: AxiosRequestConfig) {
+  function (config) {
     config.headers["token"] = getToken();
     return config;
   },
-  function (error: any) {
+  function (error) {
     return Promise.reject(error);
   });
 
@@ -31,9 +31,6 @@ instance.interceptors.response.use(
         title: ' Token 失效, 请重新登录!',
         onOk() {
           window.location.href = '/login'
-          deleteToken()
-        },
-        onCancel() {
           deleteToken()
         },
       });
