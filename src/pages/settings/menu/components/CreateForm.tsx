@@ -9,7 +9,7 @@ const {Item} = Form;
 const {Option} = Select;
 
 interface CreateFormProps {
-  visible: boolean;
+  open: boolean;
   menusSelect: DataNode[];
   menu: DataNode;
   formType: number;
@@ -18,7 +18,7 @@ interface CreateFormProps {
 }
 
 const CreateForm: FC<CreateFormProps> = (props) => {
-  const {visible, menusSelect, menu, formType, onOk, onCancel} = props
+  const {open, menusSelect, menu, formType, onOk, onCancel} = props
   const [form] = Form.useForm();
   const ok = () => {
     form
@@ -54,7 +54,7 @@ const CreateForm: FC<CreateFormProps> = (props) => {
   return (
     <Modal
       title={(formType === 1) ? "添加菜单" : "添加功能"}
-      visible={visible}
+      open={open}
       onOk={ok}
       onCancel={onCancel}
       destroyOnClose={true}>
@@ -63,9 +63,9 @@ const CreateForm: FC<CreateFormProps> = (props) => {
       >
         <Item name="parent_id" label="上级" rules={[{required: true}]}>
           <TreeSelect
-            switcherIcon={<DownOutlined/>}
+            switcherIcon={<DownOutlined />}
             placeholder={"请选择父节点"}
-            treeData={menusSelect}/>
+            treeData={menusSelect} />
         </Item>
         {formType === 1 ? (
           <Item name="menu_type" label="类型" rules={[{required: true}]}>
@@ -76,10 +76,10 @@ const CreateForm: FC<CreateFormProps> = (props) => {
           </Item>
         ) : null}
         <Item name="name" label="名称" rules={[{required: true, whitespace: true, message: '请输入菜单名称!'}]}>
-          <Input placeholder={'菜单名称'}/>
+          <Input placeholder={'菜单名称'} />
         </Item>
         <Item name="path" label="路径" rules={[{required: true, whitespace: true, message: '请输入路径!'}]}>
-          <Input placeholder={'路径'}/>
+          <Input placeholder={'路径'} />
         </Item>
         {formType === 1 ? (
           <Item name="icon" label="图标" rules={[{required: true}]}>
@@ -93,7 +93,7 @@ const CreateForm: FC<CreateFormProps> = (props) => {
         {formType === 1 ? (
           <Item name="order_id" label="排序"
                 rules={[{required: true, type: 'number', whitespace: true, message: '请输入排序值!'}]}>
-            <InputNumber placeholder={'排序值'} style={{width: '100%'}}/>
+            <InputNumber placeholder={'排序值'} style={{width: '100%'}} />
           </Item>
         ) : null}
         {formType === 2 ? (

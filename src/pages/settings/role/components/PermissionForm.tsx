@@ -6,7 +6,7 @@ import { CheckboxChangeEvent } from "antd/es/checkbox";
 import { roleMenus } from "../service";
 
 interface PermissionFormProps {
-  visible: boolean;
+  open: boolean;
   role: RoleListItem;
   menus: MenuListItem[];
   onOk: (id: number, checkedList: number[]) => void;
@@ -14,7 +14,7 @@ interface PermissionFormProps {
 }
 
 const PermissionForm: FC<PermissionFormProps> = (props) => {
-  const {visible, role, menus, onOk, onCancel} = props
+  const {open, role, menus, onOk, onCancel} = props
 
   const [menusTree, setMenusTree] = useState<any>()
   const [loading, setLoading] = useState(false)
@@ -208,6 +208,7 @@ const PermissionForm: FC<PermissionFormProps> = (props) => {
           <div>{
             record.funs.map(value => {
               return <Checkbox
+                style={{margin: "0 4px"}}
                 id={value.id as any}
                 value={value}
                 checked={checkedList.includes(value.id)}
@@ -224,7 +225,7 @@ const PermissionForm: FC<PermissionFormProps> = (props) => {
   return (
     <Modal
       title="权限设置"
-      visible={visible}
+      open={open}
       onOk={ok}
       onCancel={onCancel}
       destroyOnClose={true}

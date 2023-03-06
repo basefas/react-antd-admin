@@ -10,13 +10,13 @@ const {Item} = Form;
 const {Option} = Select;
 
 interface CreateFormProps {
-  visible: boolean;
+  open: boolean;
   onOk: (user: UserCreateInfo) => void;
   onCancel: () => void;
 }
 
 const CreateForm: FC<CreateFormProps> = (props) => {
-  const {visible, onOk, onCancel} = props
+  const {open, onOk, onCancel} = props
   const [groups, setGroups] = useState<GroupListItem[]>([])
   const [roles, setRoles] = useState<RoleListItem[]>([])
   const [form] = Form.useForm();
@@ -55,7 +55,7 @@ const CreateForm: FC<CreateFormProps> = (props) => {
   return (
     <Modal
       title="添加用户"
-      visible={visible}
+      open={open}
       onOk={ok}
       onCancel={onCancel}
       destroyOnClose={true}
@@ -65,22 +65,22 @@ const CreateForm: FC<CreateFormProps> = (props) => {
           {required: true, whitespace: true, message: '请输入用户名!'},
           {pattern: /^[a-zA-Z0-9_]+$/, message: '必须是英文，数字或者下划线!'}
         ]}>
-          <Input placeholder={'用户名'}/>
+          <Input placeholder={'用户名'} />
         </Item>
         <Item name="email" label="邮箱" rules={[
           {required: true, whitespace: true, message: '请输入邮箱!'},
           {pattern: /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/, message: '请输入正确的邮箱格式!'}
         ]}>
-          <Input placeholder={'邮箱'}/>
+          <Input placeholder={'邮箱'} />
         </Item>
         <Item name="password" label="密码" rules={[
           {required: true, whitespace: true, message: '请输入密码!'},
           {min: 6, message: '密码不能小于6位!'},
         ]}>
-          <Input placeholder={'密码'}/>
+          <Input placeholder={'密码'} />
         </Item>
-        <Item name="group_id" label="组" rules={[{required: true},]}>
-          <Select placeholder={"请选择组"}>
+        <Item name="group_id" label="分组" rules={[{required: true},]}>
+          <Select placeholder={"请选择分组"}>
             {groups.map(group => {
               return (<Option key={group.id} value={group.id}>{group.name}</Option>)
             })}

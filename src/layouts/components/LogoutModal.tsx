@@ -1,35 +1,36 @@
 import React, { useEffect } from 'react';
-import { useHistory } from "react-router-dom";
-import { deleteToken } from "../../../utils/auth";
+import { useNavigate } from "react-router-dom";
 import { message, Modal } from "antd";
+import { deleteToken } from "../../utils/auth";
 
 interface LogoutModalProps {
-  visible: boolean;
+  open: boolean;
   changeLogoutModalVisible: Function;
 }
 
 const LogoutModal: React.FC<LogoutModalProps> = (props) => {
-  const history = useHistory();
-  const {visible, changeLogoutModalVisible} = props
+  const navigate = useNavigate();
+  const {open, changeLogoutModalVisible} = props
 
   useEffect(() => {
-    changeLogoutModalVisible(visible)
-  }, [visible, changeLogoutModalVisible]);
+    changeLogoutModalVisible(open)
+  }, [open, changeLogoutModalVisible]);
 
   const okHandle = () => {
     deleteToken();
-    message.success("退出登录成功");
+    message.success("退出登录成功").then();
     changeLogoutModalVisible(false)
-    history.replace('/login')
+    navigate('/login')
   };
   const cancelHandle = () => {
     changeLogoutModalVisible(false)
   };
 
+
   return (
     <Modal
       title="退出登录"
-      visible={visible}
+      open={open}
       onOk={okHandle}
       onCancel={cancelHandle}
       destroyOnClose={true}

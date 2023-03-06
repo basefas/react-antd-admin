@@ -8,14 +8,14 @@ const {Item} = Form;
 const {Option} = Select;
 
 interface UpdateFormProps {
-  visible: boolean;
+  open: boolean;
   group: GroupListItem;
   onOk: (id: number, group: GroupUpdateInfo) => void;
   onCancel: () => void;
 }
 
 const UpdateForm: FC<UpdateFormProps> = (props) => {
-  const {visible, group, onOk, onCancel} = props
+  const {open, group, onOk, onCancel} = props
   const [roles, setRoles] = useState<RoleListItem[]>([])
   const [form] = Form.useForm();
 
@@ -46,14 +46,14 @@ const UpdateForm: FC<UpdateFormProps> = (props) => {
 
   return (
     <Modal
-      title="修改组信息"
-      visible={visible}
+      title="修改分组信息"
+      open={open}
       onOk={ok}
       onCancel={onCancel}
       destroyOnClose={true}>
       <Form{...form_layout} form={form} initialValues={group}>
-        <Item name="name" label="名称" rules={[{required: true, whitespace: true, message: '请输入组!'}]}>
-          <Input placeholder={'组'}>
+        <Item name="name" label="名称" rules={[{required: true, whitespace: true, message: '请输入分组!'}]}>
+          <Input placeholder={'分组'}>
           </Input>
         </Item>
         <Item name="role_id" label="角色" rules={[{required: true}]}>

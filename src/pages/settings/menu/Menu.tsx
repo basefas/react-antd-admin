@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, Fragment, useEffect, useState } from 'react';
 import { Button, Card, Col, Divider, message, Modal, Row, Table, Tree } from "antd";
 import { MenuCreateInfo, MenuListItem, MenuUpdateInfo } from "./data";
 import { DataNode } from 'antd/lib/tree';
@@ -6,7 +6,6 @@ import { createMenu, deleteMenu, menuGet, menuList, updateMenu } from "./service
 import { menuIcons } from "../../../utils/icons";
 import { ColumnsType } from "antd/es/table";
 import { DownOutlined, ExclamationCircleOutlined, PlusOutlined } from "@ant-design/icons";
-import { Fragment } from 'react';
 import CreateForm from "./components/CreateForm";
 import UpdateForm from "./components/UpdateForm";
 
@@ -120,20 +119,20 @@ const Menu: FC = () => {
             onClick={() => {
               setFormType(1)
               setCreateFormVisible(true)
-            }}><PlusOutlined/></Button>);
+            }}><PlusOutlined /></Button>);
 
   const addFun = (
     <Button type="primary"
             onClick={() => {
               setFormType(2)
               setCreateFormVisible(true)
-            }}><PlusOutlined/>添加</Button>);
+            }}><PlusOutlined />添加</Button>);
 
   function deleteModal(menu: MenuListItem) {
     confirm({
       title: '删除菜单',
       content: '确定删除菜单<' + menu.name + '>?',
-      icon: <ExclamationCircleOutlined/>,
+      icon: <ExclamationCircleOutlined />,
       onOk() {
         handleDeleteMenu(menu.id).then()
       },
@@ -191,7 +190,7 @@ const Menu: FC = () => {
                     setFormType(1)
                     setUpdateFormVisible(true)
                   }}>编辑</Button>
-          <Divider type="vertical"/>
+          <Divider type="vertical" />
           <Button type="link"
                   onClick={() => deleteModal(menu)}
           >删除</Button>
@@ -241,7 +240,7 @@ const Menu: FC = () => {
                     setFormType(2)
                     setUpdateFormVisible(true)
                   }}>编辑</Button>
-          <Divider type="vertical"/>
+          <Divider type="vertical" />
           <Button type="link"
                   size={"small"}
                   onClick={() => deleteModal(menu)
@@ -257,10 +256,10 @@ const Menu: FC = () => {
         <Col flex="300px">
           <Card title={treeTitle} extra={addMenu}>
             <DirectoryTree
-              switcherIcon={<DownOutlined/>}
+              switcherIcon={<DownOutlined />}
               showIcon={false}
               onSelect={onSelect}
-              treeData={menusTree}/>
+              treeData={menusTree} />
           </Card>
         </Col>
         <Col flex="auto">
@@ -299,7 +298,7 @@ const Menu: FC = () => {
       </Row>
       {createFormVisible ?
         <CreateForm
-          visible={createFormVisible}
+          open={createFormVisible}
           formType={formType}
           menusSelect={menusSelect}
           menu={menuCreate}
@@ -310,7 +309,7 @@ const Menu: FC = () => {
         /> : null}
       {updateFormVisible ?
         <UpdateForm
-          visible={updateFormVisible}
+          open={updateFormVisible}
           formType={formType}
           menusSelect={menusSelect}
           menu={menuUpdate}
