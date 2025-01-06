@@ -1,5 +1,5 @@
 import { Result } from 'antd';
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 const NoFoundPage: FC = () => (
   <Result

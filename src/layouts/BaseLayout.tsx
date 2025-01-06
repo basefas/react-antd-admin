@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import ProLayout, { MenuDataItem } from "@ant-design/pro-layout";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.svg";

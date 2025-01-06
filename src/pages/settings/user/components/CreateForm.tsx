@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Form, Input, Modal, Select } from 'antd';
 import { groupList } from "../../group/service";
 import { roleList } from "../../role/service";

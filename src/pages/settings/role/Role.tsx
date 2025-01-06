@@ -1,5 +1,5 @@
-import React, { FC, Fragment, useEffect, useState } from 'react';
-import moment from "moment";
+import { FC, Fragment, useEffect, useState } from 'react';
+import dayjs from 'dayjs';
 import { Button, Card, Divider, message, Modal, Table } from 'antd';
 import { RoleCreateInfo, RoleListItem, RoleUpdateInfo } from "./data";
 import { ColumnsType } from "antd/es/table";
@@ -42,7 +42,7 @@ const Role: FC = () => {
   }, []);
 
   const formatTime = (date: any) => {
-    return date ? moment(date).format('YYYY-MM-DD HH:mm') : ''
+    return date ? dayjs(date).format('YYYY-MM-DD HH:mm') : ''
   };
 
   const handleCreateRole = async (role: RoleCreateInfo) => {

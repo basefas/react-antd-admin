@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Checkbox, Modal, Table } from 'antd';
 import { MenuListItem } from "../../menu/data";
 import { RoleListItem } from "../data";

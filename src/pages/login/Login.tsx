@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { useEmotionCss } from "@ant-design/use-emotion-css";
 
 import { Button, Card, Form, Input, message } from 'antd';

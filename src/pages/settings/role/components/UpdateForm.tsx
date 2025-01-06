@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Form, Input, Modal } from 'antd';
 import { RoleListItem, RoleUpdateInfo } from "../data";
 
