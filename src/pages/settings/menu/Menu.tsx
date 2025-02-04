@@ -276,7 +276,6 @@ const Menu: FC = () => {
                     hideOnSinglePage: true,
                     pageSize: 10
                   }}
-                  childrenColumnName={""}
                 />
               </Card> : null}
             {menuType === 2 ?
