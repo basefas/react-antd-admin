@@ -51,7 +51,7 @@ const UpdateForm: FC<UpdateFormProps> = (props) => {
               rules={[
                 {required: true},
                 ({getFieldValue}) => ({
-                  validator(rule, value) {
+                  validator( value) {
                     if (!value || getFieldValue('parent_id') !== menu.id) {
                       return Promise.resolve();
                     }

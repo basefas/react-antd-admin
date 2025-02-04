@@ -90,7 +90,7 @@ const BaseLayout: FC = () => {
         icon: user.slice(0, 1).toUpperCase(),
         size: 'small',
         title: user,
-        render: (props, dom) => {
+        render: (_props, dom) => {
           return (
             <Dropdown
               menu={{items}}

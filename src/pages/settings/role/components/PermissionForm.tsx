@@ -19,8 +19,8 @@ const PermissionForm: FC<PermissionFormProps> = (props) => {
   const [menusTree, setMenusTree] = useState<any>()
   const [loading, setLoading] = useState(false)
   const [firstIn, setFirstIn] = useState(true)
-  const [checkedList, setCheckedList] = React.useState<number[]>([]);
-  const [indeterminateList, setIndeterminateList] = React.useState<number[]>([]);
+  const [checkedList, setCheckedList] = useState<number[]>([]);
+  const [indeterminateList, setIndeterminateList] = useState<number[]>([]);
   const [fMap, setFMap] = useState<Map<number, Array<number>>>(new Map())
   const [sMap, setSMap] = useState<Map<number, Array<number>>>(new Map())
   let fatherMap = new Map();
@@ -187,7 +187,7 @@ const PermissionForm: FC<PermissionFormProps> = (props) => {
       dataIndex: 'id',
       align: 'left',
       width: 200,
-      render: (text: any, record: MenuListItem) => {
+      render: (_text: any, record: MenuListItem) => {
         return (<Checkbox
           id={record.id as any}
           value={record}
@@ -203,7 +203,7 @@ const PermissionForm: FC<PermissionFormProps> = (props) => {
       title: '功能',
       dataIndex: 'id',
       align: 'left',
-      render: (text: any, record: MenuListItem) => {
+      render: (_text: any, record: MenuListItem) => {
         return (
           <div>{
             record.funs.map(value => {

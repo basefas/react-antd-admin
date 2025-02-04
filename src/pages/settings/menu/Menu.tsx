@@ -1,4 +1,4 @@
-import { FC, Fragment, useEffect, useState } from 'react';
+import React, { FC, Fragment, useEffect, useState } from 'react';
 import { Button, Card, Col, Divider, message, Modal, Row, Table, Tree } from "antd";
 import { MenuCreateInfo, MenuListItem, MenuUpdateInfo } from "./data";
 import { DataNode } from 'antd/lib/tree';
@@ -108,7 +108,7 @@ const Menu: FC = () => {
     }
   };
 
-  const onSelect = (selectedKeys: React.Key[], info: any) => {
+  const onSelect = (_selectedKeys: React.Key[], info: any) => {
     setMenuType(info.node.isLeaf ? 2 : 1)
     setMenuCreate({key: info.node.key, title: info.node.title})
     getMenu(info.node.key).then()
