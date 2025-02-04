@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Form, Input, InputNumber, Modal, Select, TreeSelect } from 'antd';
 import { MenuCreateInfo } from "../data";
 import { menuIcons } from "../../../../utils/icons";

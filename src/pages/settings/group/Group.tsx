@@ -1,9 +1,9 @@
-import React, { FC, Fragment, useEffect, useState } from 'react';
+import { FC, Fragment, useEffect, useState } from 'react';
 import { Button, Card, Divider, message, Modal, Table } from "antd";
 import { GroupCreateInfo, GroupListItem, GroupUpdateInfo } from "./data";
 import { createGroup, deleteGroup, groupList, updateGroup } from "./service";
 import { ColumnsType } from "antd/es/table";
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { ExclamationCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import CreateForm from "./components/CreateForm";
 import UpdateForm from "./components/UpdateForm";
@@ -30,7 +30,7 @@ const Group: FC = () => {
   }, []);
 
   const formatTime = (date: any) => {
-    return date ? moment(date).format('YYYY-MM-DD HH:mm') : ''
+    return date ? dayjs(date).format('YYYY-MM-DD HH:mm') : ''
   };
 
   const handleCreateGroup = async (group: GroupCreateInfo) => {

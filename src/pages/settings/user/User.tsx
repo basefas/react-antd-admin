@@ -1,4 +1,4 @@
-import React, { FC, Fragment, useEffect, useState } from 'react';
+import { FC, Fragment, useEffect, useState } from 'react';
 import { Badge, Button, Card, Divider, message, Modal, Table } from "antd";
 import { createUser, deleteUser, updateUser, userList } from "./service";
 import { ExclamationCircleOutlined, PlusOutlined } from "@ant-design/icons";

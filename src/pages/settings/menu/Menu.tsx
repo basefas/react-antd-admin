@@ -108,7 +108,7 @@ const Menu: FC = () => {
     }
   };
 
-  const onSelect = (selectedKeys: React.Key[], info: any) => {
+  const onSelect = (_selectedKeys: React.Key[], info: any) => {
     setMenuType(info.node.isLeaf ? 2 : 1)
     setMenuCreate({key: info.node.key, title: info.node.title})
     getMenu(info.node.key).then()
@@ -276,7 +276,6 @@ const Menu: FC = () => {
                     hideOnSinglePage: true,
                     pageSize: 10
                   }}
-                  childrenColumnName={""}
                 />
               </Card> : null}
             {menuType === 2 ?

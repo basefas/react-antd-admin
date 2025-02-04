@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Form, Input, InputNumber, Modal, Select, TreeSelect } from 'antd';
 import { menuIcons } from "../../../../utils/icons";
 import { MenuListItem, MenuUpdateInfo } from "../data";
@@ -51,7 +51,7 @@ const UpdateForm: FC<UpdateFormProps> = (props) => {
               rules={[
                 {required: true},
                 ({getFieldValue}) => ({
-                  validator(rule, value) {
+                  validator( value) {
                     if (!value || getFieldValue('parent_id') !== menu.id) {
                       return Promise.resolve();
                     }

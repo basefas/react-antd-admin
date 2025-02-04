@@ -1,6 +1,5 @@
-import React from 'react';
-import { Navigate, redirect } from 'react-router-dom'
-import { loggedIn } from "../utils/auth";
+import {Navigate, redirect} from 'react-router-dom'
+import {loggedIn} from "../utils/auth";
 import BaseLayout from "../layouts/BaseLayout";
 import NoFoundPage from "../pages/404";
 import Login from "../pages/login/Login";
@@ -10,15 +9,7 @@ import Group from "../pages/settings/group/Group";
 import User from "../pages/settings/user/User";
 import Dashboard from "../pages/dashboard/Dashboard";
 
-const isLogIn = async () => {
-  console.log(loggedIn())
-  if (loggedIn()) {
-    redirect("/login")
-  } else {
-    redirect("/dashboard")
-  }
-  return {}
-}
+
 const loaderBase = async () => {
   if (!loggedIn()) {
     return redirect("/login");

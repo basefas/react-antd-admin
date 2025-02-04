@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import ProLayout, { MenuDataItem } from "@ant-design/pro-layout";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.svg";
@@ -90,7 +90,7 @@ const BaseLayout: FC = () => {
         icon: user.slice(0, 1).toUpperCase(),
         size: 'small',
         title: user,
-        render: (props, dom) => {
+        render: (_props, dom) => {
           return (
             <Dropdown
               menu={{items}}
